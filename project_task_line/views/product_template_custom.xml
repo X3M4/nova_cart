@@ -1,0 +1,26 @@
+<odoo>
+    <!-- Form view for model project.task.line-->
+    <record model="ir.ui.view" id="project_task_line_form_view_inherit">
+        <field name="name">product.template.task.lines.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <page name="general_information" position="after">
+                <page name="task_lines" string="Task lines">
+                    <field name="project_task_line_ids">
+                        <form string="task">
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="objective"/>
+                            <field name="unit"/>
+                            <field name="time_x_hour"/>
+                            <field name="workers"/>
+                            <field name="receptor"/>
+                            <field name="price"/>
+                        </form>
+                    </field>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

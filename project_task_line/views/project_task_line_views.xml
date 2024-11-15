@@ -6,12 +6,12 @@
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
 
     <!-- Tree view for model project.task.line-->
-    <!-- <record id="project_task_line_tree_view" model="ir.ui.view">
-        <field name="name">project.task.line.tree.view</field>
+
+    <record id="view_project_task_line_tree" model="ir.ui.view">
+        <field name="name">project.task.line.tree</field>
         <field name="model">project.task.line</field>
-        <field name="inherit_id" ref="product.product_template_tree_view" />
         <field name="arch" type="xml">
-            <xpath expr="/odoo/data/record[1]/tree/field[@name='name']" position="after">
+            <tree string="Project Task Lines" editable="bottom">
                 <field name="name"/>
                 <field name="description"/>
                 <field name="objective"/>
@@ -20,55 +20,47 @@
                 <field name="workers"/>
                 <field name="receptor"/>
                 <field name="price"/>
-            </xpath>
+                <field name="sale_order_line_id"/>
+            </tree>
         </field>
-    </record> -->
-
-    <!-- Form view for model project.task.line-->
-    <record id="project_task_line__form_view" model="ir.ui.view">
-        <field name="name">project.task.line.form.view</field>
-        <field name="model">project.task.line</field>
-        <field name="inherit_id" ref="product.product_template_form_view" />
-        <field name="arch" type="xml">
-            <xpath expr="//notebook/page[@name='general_information']" position="after">
-                <page name="task_lines" string="Task lines">
-                    <group name="task_lines" string="Task Lines">
-                        <field name="project_task_line_ids" widget="one2many_list">
-                            <tree string="Task Lines" editable="bottom">
-                                <field name="name"/>
-                                <field name="description"/>
-                                <field name="objective"/>
-                                <field name="unit"/>
-                                <field name="time_x_hour"/>
-                                <field name="workers"/>
-                                <field name="receptor"/>
-                                <field name="price"/>
-                            </tree>
-                        </field>
-                    </group>
-                </page>
-            </xpath>
-        </field>
-    
     </record>
-
     
+    <record id="view_project_task_line_form" model="ir.ui.view">
+        <field name="name">project.task.line.form</field>
+        <field name="model">project.task.line</field>
+        <field name="arch" type="xml">
+            <form string="Project Task Line">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="objective"/>
+                        <field name="unit"/>
+                        <field name="time_x_hour"/>
+                        <field name="workers"/>
+                        <field name="receptor"/>
+                        <field name="price"/>
+                        <field name="sale_order_line_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    
+    <!-- ACTIONS: "Acciones para el modelo project task line"-->
 
 
-    <record id="project_task_line_action" model="ir.actions.act_window">
-        <field name="name">Project Task Line</field>
+    <record id="action_project_task_line" model="ir.actions.act_window">
+        <field name="name">Project Task Lines</field>
         <field name="res_model">project.task.line</field>
+        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-            Create a new project task line.
+            <p class="oe_view_nocontent_create">
+                Click to create a new Project Task Line.
             </p>
         </field>
     </record>
 
-    <menuitem id="menu_project_task_line"
-              name="Project Task Lines"
-              parent="product.product_menu_catalog"
-              action="project_task_line_action"
-              sequence="9"/>
+    <menuitem id="menu_project_task_line" name="Project Task Lines" parent="sale.product_menu_catalog" action="action_project_task_line" sequence="1"/>
 </odoo>

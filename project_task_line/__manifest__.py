@@ -11,8 +11,10 @@
         'product',
         'sale',
         ],
-    'data': [   
+    'data': [
+        'secutiry/ir.model.access.csv',
         'views/project_task_line_views.xml',
+        'views/product_template_custom.xml',
     ],
     'installable': True,
     'application': True,
