@@ -16,6 +16,7 @@
                 <field name="description"/>
                 <field name="objective"/>
                 <field name="unit"/>
+                <field name="time"/>
                 <field name="time_x_hour"/>
                 <field name="workers"/>
                 <field name="receptor"/>
@@ -36,6 +37,7 @@
                         <field name="description"/>
                         <field name="objective"/>
                         <field name="unit"/>
+                        <field name="time"/>
                         <field name="time_x_hour"/>
                         <field name="workers"/>
                         <field name="receptor"/>

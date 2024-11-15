@@ -9,6 +9,7 @@ class ProjectTaskLine(models.Model):
     description = fields.Text(string='Client Description')
     objective = fields.Float(string='Objective')
     unit = fields.Many2one('uom.uom', string='Unit of Measure')
+    time = fields.Float(string='Time (Hours)')
     time_x_hour = fields.Float(string='Objj/Time (Hours)')
     workers = fields.Integer(string='Workers')
     receptor = fields.Char(string='Receptors')
