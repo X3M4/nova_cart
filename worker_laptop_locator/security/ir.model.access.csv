@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_worker_laptop_controller,access_worker_laptop_controller,worker_laptop_locator.model_laptop_controller,base.group_user,1,1,1,1
+worker_laptop_locator.access_laptop_movement_line,access_laptop_movement_line,worker_laptop_locator.model_laptop_movements_line,base.group_user,1,1,1,1

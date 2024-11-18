@@ -1,0 +1,98 @@
+<odoo>
+    <data>
+        <!-- Tree View for Laptop Controller -->
+        <record id="view_laptop_controller_tree" model="ir.ui.view">
+            <field name="name">laptop.controller.tree</field>
+            <field name="model">laptop.controller</field>
+            <field name="arch" type="xml">
+                <tree string="Laptop Controller">
+                    <field name="name"/>
+                    <field name="model"/>
+                    <field name="status"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View for Laptop Controller -->
+        <record id="view_laptop_controller_form" model="ir.ui.view">
+            <field name="name">laptop.controller.form</field>
+            <field name="model">laptop.controller</field>
+            <field name="arch" type="xml">
+                <form string="Laptop Controller">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="model"/>
+                            <field name="status"/>
+                        </group>
+                        <notebook>
+                            <page string="Laptop Movements">
+                                <field name="laptop_movements_line_ids">
+                                    <tree string="Laptop Movements Line">
+                                        <field name="worker"/>
+                                        <field name="delivery_date"/>
+                                        <field name="return_date"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View for Laptop Controller -->
+        <record id="view_laptop_controller_search" model="ir.ui.view">
+            <field name="name">laptop.controller.search</field>
+            <field name="model">laptop.controller</field>
+            <field name="arch" type="xml">
+                <search string="Laptop Controller">
+                    <field name="name"/>
+                    <field name="model"/>
+                    <field name="status"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Kanban View for Laptop Controller -->
+        <record id="view_laptop_controller_kanban" model="ir.ui.view">
+            <field name="name">laptop.controller.kanban</field>
+            <field name="model">laptop.controller</field>
+            <field name="arch" type="xml">
+                <kanban string="Laptop Controller">
+                    <field name="name"/>
+                    <field name="model"/>
+                    <field name="status"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="o_kanban_record_body">
+                                    <strong><field name="name"/></strong>
+                                    <div><field name="model"/></div>
+                                    <div><field name="status"/></div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+    </data>
+
+    <!-- Action for Laptop Controller -->
+    <record id="action_laptop_controller" model="ir.actions.act_window">
+        <field name="name">Laptop Controller</field>
+        <field name="res_model">laptop.controller</field>
+        <field name="view_mode">tree,form,search,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first laptop controller
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item for Laptop Controller -->
+    <menuitem id="menu_laptop_controller_root" name="Laptop Controller" sequence="10"/>
+
+    <menuitem id="menu_laptop_controler" name="Laptop Controllers" parent="menu_laptop_controller_root" action="action_laptop_controller" sequence="10"/>
+</odoo>
