@@ -1,23 +1,21 @@
 <odoo>
-    <record id="module_category_laptop_controller" model="ir.module.category">
-        <field name="name">Laptop Controller</field>
-        <field name="description">Category for Laptop Controller Module</field>
-        <field name="sequence">10</field>
+    <!-- CREAR EL NOMBRE DEL NUEVO GRUPO DE SEGURIDAD. CADA MODELO NUEVO = NUEVO MODELOS DE SEGURIDAD-->
+    <record id="module_category_laptop" model="ir.module.category">
+        <field name="name">Laptop</field>
+        <field name="sequence" eval="10"/>
     </record>
-
-    <!-- Definir el grupo 'laptop_controller_user' -->
-    <record id="laptop_controller_user" model="res.groups">
+    
+    <!-- -->
+    <record id="group_laptop_controller_user" model="res.groups">
         <field name="name">User</field>
-        <field name="category_id" ref="module_category_laptop_controller"/>
+        <field name="category_id" ref="module_category_laptop"/>
         <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
     </record>
-
-    <!-- Definir el grupo 'laptop_controller_admin' -->
-    <record id="laptop_controller_admin" model="res.groups">
-        <field name="name">Admin</field>
-        <field name="category_id" ref="module_category_laptop_controller"/>
-        <field name="implied_ids" eval="[(4, ref('laptop_controller_user'))]"/>
+    
+    <record id="group_laptop_controller_admin" model="res.groups">
+        <field name="name">Administrator</field>
+        <field name="category_id" ref="module_category_laptop"/>
+        <field name="implied_ids" eval="[(4, ref('worker_laptop_locator.group_laptop_controller_user'))]"/>
         <field name="users" eval="[(4, ref('base.user_admin'))]"/>
     </record>
-
 </odoo>

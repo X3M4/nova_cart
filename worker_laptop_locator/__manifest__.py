@@ -8,11 +8,12 @@
     'category': 'Tools',
     'depends': ['base'],
     'data': [
-        # 'security/ir.model.access.csv',
-        # 'security/groups.xml',
+        'security/groups.xml',
         'security/ir.model.access.csv',
-        'views/worker_laptop_locator_views.xml'
+        'security/ir.model.access.csv',
+        'views/worker_laptop_locator_views.xml',
     ],
+    'images': ['static/description/icon.png'],
     'installable': True,
     'application': True,
     'auto_install': False,

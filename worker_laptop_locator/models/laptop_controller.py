@@ -19,19 +19,11 @@ class LaptopController(models.Model):
         inverse_name='laptop_controller_id',
     )
     
-    # @api.onchange('model')
-    # def _onchange_model(self):
-    #     if self.model:
-    #         self.name = self.model.name
+    laptop_movement_line_count = fields.Integer(
+        string='Laptop Movement Line Count',
+        compute='laptop_movement_line_ids_count',
+    )
     
-    # @api.depends('laptop_movements_line_ids')
-    # def _compute_status(self):
-    #     for record in self:
-    #         last_movement = record.laptop_movements_line_ids.sorted(key=lambda r: r.delivery_date, reverse=True)[:1]
-    #         if last_movement and not last_movement.return_date:
-    #             record.status = 'not_available'
-    #         else:
-    #             record.status = 'available'
                 
     @api.onchange('model')
     def _onchange_model(self):
