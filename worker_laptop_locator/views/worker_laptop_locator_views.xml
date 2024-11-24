@@ -8,7 +8,8 @@
                 <tree string="Laptop Controller">
                     <field name="name" />
                     <field name="model" />
-                    <field name="status" />
+                    <field name="status"/>
+                    <field name="owner"/>
                 </tree>
             </field>
         </record>
@@ -25,6 +26,7 @@
                             <field name="model" />
                             <field name="status" decoration-success="status == 'available'"
                                 decoration-danger="status == 'not_available'" />
+                            <field name = "owner"/>
                         </group>
                         <notebook>
                             <page string="Laptop Movements">
@@ -72,10 +74,10 @@
                                         <field name="name" />
                                     </strong>
                                     <div>
-                                        <field name="model" />
+                                        <field name="status" widget = "statusbar"/>
                                     </div>
                                     <div>
-                                        <field name="status" />
+                                        <strong><field name="owner"/></strong>
                                     </div>
                                 </div>
                             </div>

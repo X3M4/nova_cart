@@ -6,7 +6,7 @@ class LaptopController(models.Model):
 
     name = fields.Char(string='Name', required=True, computed = '_compute_name', store=True)
     
-    model = fields.Many2one('product.template', string='Model', required=True, domain=[('name', 'ilike', 'portátil p')])
+    model = fields.Many2one('product.template', string='Model', required=True, domain=[('name', 'ilike', 'port')])
     
     status = fields.Selection([
         ('available', 'Available'),
@@ -24,11 +24,23 @@ class LaptopController(models.Model):
         compute='laptop_movement_line_ids_count',
     )
     
+    owner = fields.Char(string='Owner', compute='_compute_owner', store=True)
+
+    @api.depends('laptop_movements_line_ids.return_date', 'laptop_movements_line_ids.delivery_date')
+    def _compute_owner(self):
+        for record in self:
+            # Similar lógica para obtener el último movimiento
+            last_movement = record.laptop_movements_line_ids.sorted(key=lambda r: r.delivery_date, reverse=True)[:1]
+            if last_movement:
+                last_movement = last_movement[0]
+                record.owner = last_movement.worker.name if not last_movement.return_date else ''
+            else:
+                record.owner = ''
                 
     @api.onchange('model')
     def _onchange_model(self):
         if self.model:
-            self.name = self.model.name
+            self.name = self.model.name.upper()
 
     def _update_status(self):
         for record in self:
