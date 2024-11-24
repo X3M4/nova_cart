@@ -5,7 +5,8 @@
             <field name="name">laptop.controller.tree</field>
             <field name="model">laptop.controller</field>
             <field name="arch" type="xml">
-                <tree string="Laptop Controller">
+                <tree decoration-success = "status == 'available'"
+                    decoration-danger = "status == 'not_available'">
                     <field name="name" />
                     <field name="model" />
                     <field name="status"/>
@@ -49,11 +50,14 @@
             <field name="name">laptop.controller.search</field>
             <field name="model">laptop.controller</field>
             <field name="arch" type="xml">
-                <search string="Laptop Controller">
-                    <field name="name" />
-                    <field name="model" />
-                    <field name="status" />
-                </search>
+            <search string="Laptop Controller">
+                <field name="name" />
+                <field name="model" />
+                <field name="status" />
+                <field name = "owner"/>
+                <filter string="Available" name="available" domain="[('status', '=', 'available')]" />
+                <filter string="Not Available" name="not_available" domain="[('status', '=', 'not_available')]" />
+            </search>
             </field>
         </record>
 
