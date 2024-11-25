@@ -1,0 +1,37 @@
+<!-- <odoo>
+    <record id="hr_job_survey_custom" model="ir.ui.view">
+        <field name="name">hr.job.form.custom</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_get_attachment_tree_view']" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': [('user_id', '=', 'user.id'), ('groups_id.name', '=', 'Manager')]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+    
+    
+</odoo> -->
+
+<odoo>
+    <record id="hr_job_survey_custom" model="ir.ui.view">
+        <field name="name">hr.job.form.custom</field>
+        <field name="model">hr.job</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_get_attachment_tree_view']" position="replace">
+                <button class="oe_stat_button"
+                        icon="fa-file"
+                        name="action_get_documents"
+                        type="object"
+                        string="Documents"
+                        attrs="{'invisible': [('user_id', '=', 'user.id'),]}">
+                    <field name="documents_count" widget="statinfo" string="Documents" attrs="{'invisible': [('user_id', '=', 'user.id'),]}"/>
+                </button>
+            </xpath>
+            
+        </field>
+    </record>
+</odoo>

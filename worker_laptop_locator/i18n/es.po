@@ -1,0 +1,165 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* worker_laptop_locator
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-24 10:57+0000\n"
+"PO-Revision-Date: 2024-11-24 10:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: worker_laptop_locator
+#: model:res.groups,name:worker_laptop_locator.group_laptop_controller_admin
+msgid "Administrator"
+msgstr "Administrador"
+
+#. module: worker_laptop_locator
+#: selection:laptop.controller,status:0
+msgid "Available"
+msgstr "Disponible"
+
+#. module: worker_laptop_locator
+#: model_terms:ir.actions.act_window,help:worker_laptop_locator.action_laptop_controller
+msgid "Create your first laptop controller"
+msgstr "Crea tu primer controlador de portátil"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__create_uid
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__create_date
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__delivery_date
+msgid "Delivery date"
+msgstr "Fecha de entrega"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__display_name
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__display_name
+msgid "Display Name"
+msgstr "Nombre para mostrar"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__id
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: worker_laptop_locator
+#: model:ir.module.category,name:worker_laptop_locator.module_category_laptop
+msgid "Laptop"
+msgstr "Portátil"
+
+#. module: worker_laptop_locator
+#: model:ir.model,name:worker_laptop_locator.model_laptop_controller
+msgid "Laptop Controler"
+msgstr "Gestor de portátiles"
+
+#. module: worker_laptop_locator
+#: model:ir.actions.act_window,name:worker_laptop_locator.action_laptop_controller
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__laptop_controller_id
+#: model:ir.ui.menu,name:worker_laptop_locator.menu_laptop_controller_root
+#: model_terms:ir.ui.view,arch_db:worker_laptop_locator.view_laptop_controller_kanban
+#: model_terms:ir.ui.view,arch_db:worker_laptop_locator.view_laptop_controller_search
+#: model_terms:ir.ui.view,arch_db:worker_laptop_locator.view_laptop_controller_tree
+msgid "Laptop Controller"
+msgstr "Gestor de portátiles"
+
+#. module: worker_laptop_locator
+#: model:ir.ui.menu,name:worker_laptop_locator.menu_laptop_controler
+msgid "Laptop Controllers"
+msgstr "Gestor de portátiles"
+
+#. module: worker_laptop_locator
+#: model_terms:ir.ui.view,arch_db:worker_laptop_locator.view_laptop_controller_form
+msgid "Laptop Management"
+msgstr "Gestión de portátiles"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__laptop_movement_line_count
+msgid "Laptop Movement Line Count"
+msgstr "Conteo de Líneas de Movimiento de portátiles"
+
+#. module: worker_laptop_locator
+#: model_terms:ir.ui.view,arch_db:worker_laptop_locator.view_laptop_controller_form
+msgid "Laptop Movements"
+msgstr "Movimientos de Laptop"
+
+#. module: worker_laptop_locator
+#: model:ir.model,name:worker_laptop_locator.model_laptop_movements_line
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__laptop_movements_line_ids
+#: model_terms:ir.ui.view,arch_db:worker_laptop_locator.view_laptop_controller_form
+msgid "Laptop Movements Line"
+msgstr "Línea de Movimientos de portátiles"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller____last_update
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__write_uid
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__write_date
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__model
+msgid "Model"
+msgstr "Modelo"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: worker_laptop_locator
+#: selection:laptop.controller,status:0
+msgid "Not Available"
+msgstr "No Disponible"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__owner
+msgid "Owner"
+msgstr "Propietario"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__return_date
+msgid "Return date"
+msgstr "Fecha de devolución"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_controller__status
+msgid "Status"
+msgstr "Estado"
+
+#. module: worker_laptop_locator
+#: model:res.groups,name:worker_laptop_locator.group_laptop_controller_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: worker_laptop_locator
+#: model:ir.model.fields,field_description:worker_laptop_locator.field_laptop_movements_line__worker
+msgid "Worker"
+msgstr "Trabajador"

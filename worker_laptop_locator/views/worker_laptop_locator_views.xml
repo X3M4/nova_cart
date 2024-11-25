@@ -5,10 +5,12 @@
             <field name="name">laptop.controller.tree</field>
             <field name="model">laptop.controller</field>
             <field name="arch" type="xml">
-                <tree string="Laptop Controller">
+                <tree decoration-success = "status == 'available'"
+                    decoration-danger = "status == 'not_available'">
                     <field name="name" />
                     <field name="model" />
-                    <field name="status" />
+                    <field name="status"/>
+                    <field name="owner"/>
                 </tree>
             </field>
         </record>
@@ -25,11 +27,12 @@
                             <field name="model" />
                             <field name="status" decoration-success="status == 'available'"
                                 decoration-danger="status == 'not_available'" />
+                            <field name = "owner"/>
                         </group>
                         <notebook>
                             <page string="Laptop Movements">
-                                <field name="laptop_movements_line_ids">
-                                    <tree string="Laptop Movements Line">
+                                <field name="laptop_movements_line_ids" >
+                                    <tree string="Laptop Movements Line" editable="bottom">
                                         <field name="worker" />
                                         <field name="delivery_date" />
                                         <field name="return_date" />
@@ -38,6 +41,10 @@
                             </page>
                         </notebook>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -47,11 +54,14 @@
             <field name="name">laptop.controller.search</field>
             <field name="model">laptop.controller</field>
             <field name="arch" type="xml">
-                <search string="Laptop Controller">
-                    <field name="name" />
-                    <field name="model" />
-                    <field name="status" />
-                </search>
+            <search string="Laptop Controller">
+                <field name="name" />
+                <field name="model" />
+                <field name="status" />
+                <field name = "owner"/>
+                <filter string="Available" name="available" domain="[('status', '=', 'available')]" />
+                <filter string="Not Available" name="not_available" domain="[('status', '=', 'not_available')]" />
+            </search>
             </field>
         </record>
 
@@ -72,10 +82,10 @@
                                         <field name="name" />
                                     </strong>
                                     <div>
-                                        <field name="model" />
+                                        <field name="status" widget = "statusbar"/>
                                     </div>
                                     <div>
-                                        <field name="status" />
+                                        <strong><field name="owner"/></strong>
                                     </div>
                                 </div>
                             </div>

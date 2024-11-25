@@ -6,7 +6,7 @@
     'author': 'Chema Fernández <Nova Cartografia>',
     'website': 'http://www.yourcompany.com',
     'category': 'Tools',
-    'depends': ['base'],
+    'depends': ['base', 'mail', 'portal'],
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
