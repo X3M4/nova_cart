@@ -9,6 +9,11 @@ class ResPartnerHtmlField(models.Model):
         readonly = False,
     )
     
+    @api.model
+    def create(self, vals):
+        record = super(ResPartnerHtmlField, self).create(vals)
+        return record
+    
 
     
     
