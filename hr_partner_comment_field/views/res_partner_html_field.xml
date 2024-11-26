@@ -1,0 +1,16 @@
+<odoo>
+    <data>
+        <record id="view_partner_form_hr_comment_inherited" model="ir.ui.view">
+            <field name="name">res.partner.form.hr.comment.inherited</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="HR Comment" groups="hr_recruitment.group_hr_recruitment_manager">
+                        <field name="comment"/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

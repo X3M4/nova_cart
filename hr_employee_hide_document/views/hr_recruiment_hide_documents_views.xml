@@ -16,22 +16,20 @@
 </odoo> -->
 
 <odoo>
-    <record id="hr_job_survey_custom" model="ir.ui.view">
-        <field name="name">hr.job.form.custom</field>
+    <record id="hr_job_restrict_documents_button" model="ir.ui.view">
+        <field name="name">hr.job.form.documents.button.restrict</field>
         <field name="model">hr.job</field>
-        <field name="inherit_id" ref="hr_recruitment.hr_job_survey"/>
+        <field name="inherit_id" ref="hr.view_hr_job_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_get_attachment_tree_view']" position="replace">
-                <button class="oe_stat_button"
-                        icon="fa-file"
-                        name="action_get_documents"
-                        type="object"
-                        string="Documents"
-                        attrs="{'invisible': [('user_id', '=', 'user.id'),]}">
-                    <field name="documents_count" widget="statinfo" string="Documents" attrs="{'invisible': [('user_id', '=', 'user.id'),]}"/>
-                </button>
+            <!-- Restringir el botón de documentos -->
+            <xpath expr="//button[@name='action_get_attachment_tree_view']" position="attributes">
+                <attribute name="attrs">{
+                    'invisible': ['|', 
+                        ('id', '!=', 'user_id.id'), 
+                        ('group_hr_recruitment_manager', 'not in', user.groups_id.ids)
+                    ]
+                }</attribute>
             </xpath>
-            
         </field>
     </record>
 </odoo>

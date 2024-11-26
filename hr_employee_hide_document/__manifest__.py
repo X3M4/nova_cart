@@ -5,7 +5,7 @@
     'author': 'Tu Nombre',
     'depends': ['hr_recruitment', 'base'],
     'data': [
-        'views/hr_job_views.xml',
+        'views/hr_recruiment_hide_documents_views.xml',
     ],
     'installable': True,
     'application': False,
