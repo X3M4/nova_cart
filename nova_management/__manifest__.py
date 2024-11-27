@@ -1,8 +1,8 @@
 {
-    'name': 'Worker Laptop Locator',
+    'name': 'nova_management',
     'version': '1.0',
-    'summary': 'Module to locate worker laptops',
-    'description': 'This module helps in locating worker laptops within the organization.',
+    'summary': 'Module to manage Nova Cartographia operations',
+    'description': 'This module installs management tools.',
     'author': 'Chema Fernández <Nova Cartografia>',
     'website': 'http://www.yourcompany.com',
     'category': 'Tools',
@@ -10,8 +10,9 @@
     'data': [
         'security/groups.xml',
         'security/ir.model.access.csv',
-        'security/ir.model.access.csv',
         'views/worker_laptop_locator_views.xml',
+        
+        'views/novacartografia_management_menu.xml',
     ],
     'images': ['static/description/icon.png',
                'static/description/icon.svg'],

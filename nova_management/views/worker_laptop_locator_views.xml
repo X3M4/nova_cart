@@ -5,12 +5,12 @@
             <field name="name">laptop.controller.tree</field>
             <field name="model">laptop.controller</field>
             <field name="arch" type="xml">
-                <tree decoration-success = "status == 'available'"
-                    decoration-danger = "status == 'not_available'">
+                <tree decoration-success="status == 'available'"
+                    decoration-danger="status == 'not_available'">
                     <field name="name" />
                     <field name="model" />
-                    <field name="status"/>
-                    <field name="owner"/>
+                    <field name="status" />
+                    <field name="owner" />
                 </tree>
             </field>
         </record>
@@ -49,19 +49,22 @@
             </field>
         </record>
 
+
         <!-- Search View for Laptop Controller -->
         <record id="view_laptop_controller_search" model="ir.ui.view">
             <field name="name">laptop.controller.search</field>
             <field name="model">laptop.controller</field>
             <field name="arch" type="xml">
-            <search string="Laptop Controller">
-                <field name="name" />
-                <field name="model" />
-                <field name="status" />
-                <field name = "owner"/>
-                <filter string="Available" name="available" domain="[('status', '=', 'available')]" />
-                <filter string="Not Available" name="not_available" domain="[('status', '=', 'not_available')]" />
-            </search>
+                <search string="Laptop Controller">
+                    <field name="name" />
+                    <field name="model" />
+                    <field name="status" />
+                    <field name="owner" />
+                    <filter string="Available" name="available"
+                        domain="[('status', '=', 'available')]" />
+                    <filter string="Not Available" name="not_available"
+                        domain="[('status', '=', 'not_available')]" />
+                </search>
             </field>
         </record>
 
@@ -82,10 +85,12 @@
                                         <field name="name" />
                                     </strong>
                                     <div>
-                                        <field name="status" widget = "statusbar"/>
+                                        <field name="status" widget="statusbar" />
                                     </div>
                                     <div>
-                                        <strong><field name="owner"/></strong>
+                                        <strong>
+                                            <field name="owner" />
+                                        </strong>
                                     </div>
                                 </div>
                             </div>
@@ -113,6 +118,6 @@
 
     <menuitem id="menu_laptop_controler" name="Laptop Controllers"
         parent="menu_laptop_controller_root" action="action_laptop_controller" sequence="10"
-        web_icon="worker_laptop_locator,static/description/icon.png" 
-        icon="worker_laptop_locator,static/description/icon.png"/>
+        web_icon="nova_management,static/description/icon.png"
+        icon="nova_management,static/description/icon.png" />
 </odoo>

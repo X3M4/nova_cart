@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Menú principal -->
+        <menuitem id="nova_menu" name="Nova Management Menu" sequence="10"/>
+
+        <!-- Submenú Laptop Controllers -->
+        <menuitem 
+            id="menu_laptop_controller" 
+            name="Laptop Controllers"
+            action="nova_management.action_laptop_controller" 
+            parent="nova_management.nova_menu" 
+            web_icon="nova_management,static/description/icon.png"
+            icon="nova_management,static/description/icon.png" 
+            sequence="10"/>
+    </data>
+</odoo>
