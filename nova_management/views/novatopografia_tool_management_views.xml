@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Tree View for Tool Management -->
+        <record id="view_tool_management_tree" model="ir.ui.view">
+            <field name="name">tool.management.tree</field>
+            <field name="model">novatopografia.tool.management</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="employee" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Form View for Tool Management -->
+        <record id="view_tool_management_form" model="ir.ui.view">
+            <field name="name">tool.management.form</field>
+            <field name="model">novatopografia.tool.management</field>
+            <field name="arch" type="xml">
+                <form string="Tool Management">
+                    <sheet>
+                        <group>
+                            <field name="employee" />
+                        </group>
+                        <notebook>
+                            <page string="Tool Data Movements">
+                                <field name="tool_movements_line_ids">
+                                    <tree>
+                                        <field name="delivery_date" />
+                                        <field name="return_date"/>
+                                        <field name="employee_supplier"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Search View for Tool Management -->
+        <record id="view_tool_management_search" model="ir.ui.view">
+            <field name="name">tool.management.search</field>
+            <field name="model">novatopografia.tool.management</field>
+            <field name="arch" type="xml">
+                <search string="Tool Management">
+                    <field name="employee" />
+                    <field name="tool_movements_line_ids">
+                        <filter name="filter_location_from" string="Location From" domain="[('location_from', '=', 'location_from')]"/>
+                        <filter name="filter_location_to" string="Location To" domain="[('location_to', '=', 'location_to')]"/>
+                    </field>
+                    
+                </search>
+            </field>
+        </record>
+
+        <!-- Kanban View for tool management-->
+        <record id="view_tool_management_kanban" model="ir.ui.view">
+            <field name="name">tool.management.kanban</field>
+            <field name="model">novatopografia.tool.management</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="employee"/>
+                    <field name="tool_movements_line_ids">
+                        <field name="product_ids" widget="many2many_tags"/>
+                        <field name="employee_supplier"/>
+                        <field name="location_from"/>
+                        <field name="location_to"/>
+                        <field name="qty"/>
+                        <field name="delivery_date"/>
+                        <field name="return_date"/>
+                    </field>
+                </kanban>
+            </field>
+        </record>
+
+    </data>
+    <!-- Action for Tool Management -->
+        <record id="action_tool_management" model="ir.actions.act_window">
+            <field name="name">Tool Management</field>
+            <field name="res_model">novatopografia.tool.management</field>
+            <field name="view_mode">tree,form,search,kanban</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                Create your first tool movement
+                </p>
+            </field>
+        </record>
+</odoo>

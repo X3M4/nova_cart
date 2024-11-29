@@ -2,16 +2,28 @@
 <odoo>
     <data>
         <!-- Menú principal -->
-        <menuitem id="nova_menu" name="Nova Management Menu" sequence="10"/>
+        <menuitem id="nova_menu" name="Nova Management" sequence="10"/>
+
+        <menuitem id="tool_management" name = "Tool Management" parent = "nova_management.nova_menu" sequence="10"/>
 
         <!-- Submenú Laptop Controllers -->
         <menuitem 
             id="menu_laptop_controller" 
             name="Laptop Controllers"
             action="nova_management.action_laptop_controller" 
-            parent="nova_management.nova_menu" 
+            parent="nova_management.tool_management" 
             web_icon="nova_management,static/description/icon.png"
             icon="nova_management,static/description/icon.png" 
             sequence="10"/>
+
+        <!-- Submenú Tool Movements -->
+        <menuitem 
+            id="menu_tool_movements" 
+            name="Tool Movements"
+            action="nova_management.action_tool_management" 
+            parent="nova_management.tool_management" 
+            web_icon="nova_management,static/description/icon.png"
+            icon="nova_management,static/description/icon.png" 
+            sequence="20"/>
     </data>
 </odoo>
