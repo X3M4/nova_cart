@@ -1,0 +1,843 @@
+<odoo>
+    <data>
+
+        <record id="paperformat_novaCartografia_factura" model="report.paperformat">
+            <field name="name">novaCartografia Facturas</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">30</field>
+            <field name="margin_bottom">40</field>
+            <field name="margin_left">5</field>
+            <field name="margin_right">5</field>
+            <field name="header_line" eval="False" />
+            <field name="header_spacing">25</field>
+            <field name="dpi">120</field>
+        </record>
+
+        <template id="report_invoice_with_payments_usa">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="'en_US'" />
+                    <t t-call="account.report_invoice_document_with_payments" t-lang="lang" />
+                </t>
+            </t>
+        </template>
+
+
+        <report
+            id="account_invoices"
+            model="account.invoice"
+            string="Factura USA"
+            report_type="qweb-pdf"
+            name="reports_novaCartografia.report_invoice_with_payments_usa"
+            file="reports_novaCartografia.report_invoice_with_payments_usa"
+            attachment="(object.state in ('open','in_payment','paid')) and ('INV'+(object.number or '').replace('/','')+'.pdf')"
+            print_report_name="('Invoice %s' % (object.display_name))"
+            groups="account.group_account_invoice"
+        />
+
+        <report id="account.report_novaCartografia_factura" string="Factura personalizada"
+            model="account.invoice" report_type="qweb-pdf" file="reports_novaCartografia.factura"
+            name="reports_novaCartografia.factura"
+            print_report_name="'%s FACTURA - %s' % (object.company_id.name, object.name)"
+            paperformat="paperformat_novaCartografia_factura" />
+
+        <template id="css">
+            <style>
+                body {
+                font-size: larger;
+                }
+
+                .tablita table, .carta .derecha table, .cliente .tablaCliente table {
+                width: 100%;
+                }
+
+                .tablita table thead th, .carta .derecha table thead th, .cliente .tablaCliente
+                table thead th {
+                background-color: #FEB063;
+                color: white;
+                }
+
+                .tablita table thead td, .carta .derecha table thead td, .cliente .tablaCliente
+                table thead td {
+                font-weight: bold;
+                border-bottom: 1px solid #FEB063;
+                }
+
+                .tablita table tbody th, .carta .derecha table tbody th, .cliente .tablaCliente
+                table tbody th {
+                border-right: 1px solid #FEB063;
+                }
+
+                .carta .izquierda th, .carta .izquierda td {
+                font-weight: bold;
+                padding-right: 30px;
+                }
+
+                .carta .izquierda table {
+                table-layout: fixed;
+                border-collapse: collapse;
+                width:100%;
+                }
+
+                .carta .izquierda div {
+                margin-top: 65px;
+                width: 100%;
+                border-radius: 30px;
+                border: 1px solid #FEB063;
+                text-align: center;
+                padding: 0px 20px;
+                }
+
+                .carta .izquierda div h4 {
+                color: #FEB063;
+                font-weight: bold;
+                font-size: 1rem;
+                }
+
+                .carta .izquierda div h5 {
+                font-weight: bold;
+                font-size: 1rem;
+                }
+
+                .cliente {
+                margin-top: 60px;
+                }
+
+                .tabla {
+                margin-top: 30px;
+                }
+
+                .tabla table {
+                width: 100%;
+                border-bottom: 1px solid #D4D1D3;
+                }
+
+                .tabla table thead th, .tabla table thead td {
+                text-align: center;
+                color: white;
+                font-weight: bold;
+                }
+
+                .tabla table thead th {
+                background-color: #B8B8B6;
+                }
+
+                .tabla table thead td {
+                background-color: #FEB063;
+                }
+
+                .tabla table tbody th, .tabla table tbody td {
+                text-align: inherit;
+                font-weight: bold;
+                border-right: 1px solid #D4D1D3;
+                border-left: 1px solid #D4D1D3;
+                padding-bottom: 25px;
+                }
+
+                .tabla table tbody th {
+                background-color: #D4D1D3;
+
+                text-align: right;
+                }
+
+                .pie {
+                margin-top: 15px;
+                }
+
+                .pie .pago table {
+                border-top: 1px solid #D4D1D3;
+                width: 100%;
+                }
+
+                .pie .pago table th, .pie .pago table td {
+                border-right: 1px solid #D4D1D3;
+                border-left: 1px solid #D4D1D3;
+                }
+
+                .pie .pago table thead th {
+                background-color: #D4D1D3;
+                color: white;
+                }
+
+                .pie .total table {
+                width: 100%;
+                }
+
+                .pie .total table td {
+                font-weight: bold;
+                background-color: #D4D1D3;
+                text-align: right;
+                }
+
+                .pie .total table thead th, .pie .total table thead td {
+                margin-bottom: 25px;
+                text-align: center;
+                border-bottom: 15px solid white;
+                }
+
+                .pie .total table thead th {
+                background-color: #B8B8B6;
+                color: white;
+                }
+
+                .pie .total table tbody th, .pie .total table tbody td {
+                text-align: center;
+                padding: 13px 0px;
+                }
+
+                .pie .total table tbody th {
+                background-color: #FEB063;
+                color: white;
+                }
+                .bloque {
+                page-break-inside: avoid;
+                page-break-after: avoid;
+                page-break-before: avoid;
+                }
+
+            </style>
+        </template>
+        <template id="factura">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <t t-if="o.company_id.id != 5">
+                        <div style="width:100%; border-bottom: 4px solid #FEB063;"
+                            class="header row">
+                            <div class="col-6">
+                                <h1
+                                    style="font-weight:bold; color: #FEB063;    position: absolute;
+    bottom: 0px;
+    margin: 0px;">
+                                    FACTURA</h1>
+                            </div>
+                            <div class="col-6" style="text-align:right">
+                                <img src='/web/binary/company_logo'
+                                    style="width:auto; height: 90px; margin-bottom:10px; margin-right:25px" />
+                                <div style="width:auto; margin-bottom:10px; margin-right:25px" />
+                            </div>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div style="width:100%; border-bottom: 4px solid #FEB063;"
+                            class="header row">
+                            <div class="col-6">
+                                <h1
+                                    style="font-weight:bold; color: #FEB063;    position: absolute;
+    bottom: 0px;
+    margin: 0px;">
+                                    INVOICE</h1>
+                            </div>
+                            <div class="col-6" style="text-align:right">
+                                <img src='/web/binary/company_logo'
+                                    style="width:auto; height: 90px; margin-bottom:10px; margin-right:25px" />
+                                <div style="width:auto; margin-bottom:10px; margin-right:25px" />
+                            </div>
+                        </div>
+                    </t>
+                    <div class="page">
+                        <t t-call="reports_novaCartografia.css" />
+                        <div class="row carta">
+                            <div class="col-7 izquierda">
+                                <t t-if="o.company_id.id != 5">
+                                    <table>
+                                        <colgroup>
+                                            <col width="192px" />
+                                            <col style="width: calc( 100% - 192px )" />
+                                        </colgroup>
+                                        <tr>
+                                            <th>Nº de factura:</th>
+                                            <td style="font-weight:normal">
+                                                <t t-esc="o.number" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Fecha:</th>
+                                            <td style="font-weight:normal">
+                                                <span t-field="o.date_invoice"
+                                                    t-options='{"format": "dd-MM-yyyy"}' />
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.origin">
+                                            <th>Nº Pedido</th>
+                                            <td style="font-weight:normal">
+                                                <t t-esc="o.origin" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Periodo:</th>
+                                            <td style="font-weight:normal">
+                                                <span t-field="o.invoicing_period" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </t>
+                                <t t-else="">
+                                    <table>
+                                        <colgroup>
+                                            <col width="192px" />
+                                            <col style="width: calc( 100% - 192px )" />
+                                        </colgroup>
+                                        <tr>
+                                            <th>Invoice Nr:</th>
+                                            <td style="font-weight:normal">
+                                                <t t-esc="o.number" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date:</th>
+                                            <td style="font-weight:normal">
+                                                <span t-field="o.date_invoice"
+                                                    t-options='{"format": "dd-MM-yyyy"}' />
+                                            </td>
+                                        </tr>
+                                        <tr t-if="o.origin">
+                                            <th>Sale Order</th>
+                                            <td style="font-weight:normal">
+                                                <t t-esc="o.origin" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Period:</th>
+                                            <td style="font-weight:normal">
+                                                <span t-field="o.invoicing_period" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </t>
+
+                            </div>
+                            <div class="col-5 derecha">
+                                <table>
+                                    <colgroup>
+                                        <col width="20%" />
+                                        <col width="80%" />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <t t-if="o.company_id.id != 5">
+                                                <th>EMISOR</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.name" />
+                                                </td>
+                                            </t>
+                                            <t t-else="">
+                                                <th>ISSUER</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.name" />
+                                                </td>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-if="o.company_id.id != 5">
+                                            <tr>
+                                                <th>CIF / NIF</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.vat" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dirección</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.street" />
+                          <t
+                                                        t-esc="o.company_id.zip" /> , <t
+                                                        t-esc="o.company_id.city" /> , <t
+                                                        t-esc="o.company_id.state_id.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Teléfono</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.phone" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <t t-else="">
+                                            <tr>
+                                                <th>EIN</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.vat" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Address</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.street" />
+                          <t
+                                                        t-esc="o.company_id.zip" /> , <t
+                                                        t-esc="o.company_id.city" /> , <t
+                                                        t-esc="o.company_id.state_id.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Phone</th>
+                                                <td style="padding-left:3px">
+                                                    <t t-esc="o.company_id.phone" />
+                                                </td>
+                                            </tr>
+
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row cliente">
+                            <div class="col-8 tablaCliente">
+                                <t t-if="o.company_id.id != 5">
+                                    <table>
+                                        <colgroup>
+                                            <col width="20%" />
+                                            <col width="80%" />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-left:3px;padding-right:150px">
+                                                    CLIENTE</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.name" />
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th style="padding-left:3px;">CIF</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.vat" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Dirección</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.street" />
+                                                    <t t-esc="o.partner_id.street2" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Población</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.city" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Provincia</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.state_id.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Código Postal</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.zip" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Referencia</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Centro</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.center" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Departamento</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.department" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Obra</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.construction_site" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">C.Topográfico</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.topographic_code" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Lugar</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.place" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </t>
+                                <t t-else="">
+                                    <table>
+                                        <colgroup>
+                                            <col width="20%" />
+                                            <col width="80%" />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th style="padding-left:3px;padding-right:150px">BILL
+                                                    TO</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.name" />
+                                                </td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th style="padding-left:3px;">EIN</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.vat" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Address</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.street" />
+                                                    <t t-esc="o.partner_id.street2" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">City</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.city" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">State</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.state_id.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">ZIP</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.partner_id.zip" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Reference</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.name" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Frame Agreement</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.center" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">SO/Contract</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.department" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Project Code</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.construction_site" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Topo. Code</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.topographic_code" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th style="padding-left:3px;">Location</th>
+                                                <td style="padding-left:3px;">
+                                                    <t t-esc="o.place" />
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </t>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                        <div class="row tabla">
+                            <div class="col-12">
+                                <table>
+                                    <colgroup>
+                                        <col width="10%" style="text-align:center" />
+                                        <col width="50%" style="text-align:left" />
+                                        <col width="15%" style="text-align:right" />
+                                        <col width="10%" style="text-align:right" />
+                                        <col width="15%" style="text-align:right" />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <t t-if="o.company_id.id != 5">
+                                                <th>Cantidad</th>
+                                                <th>Descripción</th>
+                                                <th>Precio unitario</th>
+                                            </t>
+                                            <t t-else="">
+                                                <th>Quantity</th>
+                                                <th>Description</th>
+                                                <th>Unit Price</th>
+                                            </t>
+
+                                            <!-- <th>IVA</th> -->
+                                            <t t-if="o.company_id.id != 5">
+                                                <td>TOTAL (€)</td>
+                                            </t>
+                                            <t t-else="">
+                                                <td>TOTAL ($)</td>
+                                            </t>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.invoice_line_ids" t-as="line">
+                                            <td style="font-weight:normal">
+                                                <span t-field="line.quantity" />
+                                            </td>
+                                            <td style="font-weight:normal">
+                                                <span t-field="line.name" />
+                                            </td>
+                                            <td style="font-weight:normal">
+                                                <span t-field="line.price_unit"
+                                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                            </td>
+                                            <!-- <td style="font-weight:normal"> <span t-esc="',
+                                            '.join(map(lambda x:
+                      (x.tax_group_id.name), line.invoice_line_tax_ids))"/></td> -->
+                                            <th style="font-weight:normal">
+                                                <span t-field="line.price_subtotal"
+                                                    groups="account.group_show_line_subtotals_tax_excluded"
+                                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                                <span t-field="line.price_total"
+                                                    groups="account.group_show_line_subtotals_tax_included"
+                                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row pie bloque">
+
+                            <div class="col-7"></div>
+                            <div class="col-5 total">
+                                <table>
+                                    <colgroup>
+                                        <col width="50%" />
+                                        <col width="50%" />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>Base Imponible(€)</th>
+                                            <td>
+                                                <span t-field="o.amount_untaxed"
+                                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                            </td>
+                                        </tr>
+                                        <t t-foreach="o.amount_by_group" t-as="amount_by_group">
+                                            <tr>
+                                                <t
+                                                    t-if="len(o.tax_line_ids) == 1 and o.amount_untaxed == amount_by_group[2]">
+                                                    <th>
+                                                        <span t-esc="amount_by_group[0]" />
+                                                    </th>
+                                                    <td class=" ">
+                                                        <span t-esc="amount_by_group[3]" />
+                                                    </td>
+                                                </t>
+                                                <t t-else="">
+                                                    <th>
+                                                        <span t-esc="amount_by_group[0]" />
+                                                        <span>&amp;nbsp;<small>( <t
+                                                                    t-esc="amount_by_group[4]" /> )</small>
+                                                        </span>
+                                                    </th>
+                                                    <td class="">
+                                                        <span t-esc="amount_by_group[3]" />
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </t>
+
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <t t-if="o.company_id.id != 5">
+                                                <th>TOTAL(€)</th>
+                                            </t>
+                                            <t t-else="">
+                                                <th>TOTAL($)</th>
+                                            </t>
+                                            <td>
+                                                <span t-field="o.amount_total"
+                                                    t-options='{"widget": "monetary", "display_currency": o.currency_id}' />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                        <div t-if="o.cliente_cyc">
+                            <strong>Operación asegurada en</strong>
+                            <br />
+                            <strong>Crédito y Caución.</strong>
+                            <br />
+                            <img src='/reports_novaCartografia/static/logo/logo_cyc.jpeg'
+                                style="float:left;width:auto; height: 100px;padding-bottom:10px;" />
+                            <img src='/reports_novaCartografia/static/logo/logo_cyc2.jpeg'
+                                style="float:left;width:auto; height: 100px;padding-bottom:10px;" />
+                        </div>
+                    </div>
+
+
+                    <div style="" class="footer">
+                        <t t-call="reports_novaCartografia.css" />
+                        <t t-if="o.company_id.id != 5">
+                            <div class="row pie last-page" style="border-bottom: 4px solid #FEB063;">
+                                <div class="col-7 pago">
+                                    <table>
+                                        <colgroup>
+                                            <col width="30%" />
+                                            <col width="70%" />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>Detalle de pago</th>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Forma de Pago</td>
+                                                <th>
+                                                    <span t-field="o.payment_mode_id.name" />
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>Vencimiento</td>
+                                                <th>
+                                                    <span t-field="o.payment_term_id.name" />
+                                                </th>
+                                            </tr>
+                                            <!-- <tr>
+                                  <td>Nº Cuenta</td>
+                                  <th><span t-field="o.partner_bank_id"/></th>
+                                </tr> -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <div class="row pie last-page" style="border-bottom: 4px">
+                                <div class="col-7 pago">
+                                    <table>
+                                        <colgroup>
+                                            <col width="30%" />
+                                            <col width="70%" />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>Payment Detail</th>
+                                                <td></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Payment method</td>
+                                                <th>
+                                                    <span t-field="o.payment_mode_id.name" />
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <td>Due Date</td>
+                                                <th>
+                                                    <span t-field="o.payment_term_id.name" />
+                                                </th>
+                                            </tr>
+                                            <!-- <tr>
+                                  <td>Nº Cuenta</td>
+                                  <th><span t-field="o.partner_bank_id"/></th>
+                                </tr> -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </t>
+                        <t t-if="o.company_id.id != 5">
+                            <img src='/reports_novaCartografia/static/logo/logo_nova.jpg'
+                                style="float:left;width:auto; height: 100px;padding-top:10px;" />
+                            <div style="text-align:center;font-size:initial;width:75%;float:right;">
+                                <p t-field="o.company_id.website"
+                                    style="color: #FEB063; font-weight: bold;margin-bottom:0;padding-top:10px;" />
+                                <i style="color: #FEB063; font-weight: bold;">Inscrita en el Reg.
+                                    Merc. de Valencia.
+                                    Tomo: 8152, Libro: 7, Folio: 211, Sección: 9, Hoja: V 237,
+                                    Inscripción: 2ª</i>
+                            </div>
+                        </t>
+                        <t t-else="">
+                            <img src='/reports_novaCartografia/static/logo/logo_nova.jpg'
+                                style="float:left;width:auto; height: 100px;padding-top:10px;" />
+                            <div style="text-align:center;font-size:initial;width:75%;float:right;">
+                                <p t-field="o.company_id.partner_id"
+                                    style="color: #FEB063; font-weight: bold;margin-bottom:0;padding-top:10px;" />
+                                <i style="color: #FEB063; font-weight: bold;">10101 Fondren Rd,
+                                    77096 , Houston , Texas</i>
+
+                            </div>
+
+                        </t>
+                        <script>
+                            function subst() {
+                            var vars = {};
+                            var x = document.location.search.substring(1).split('&amp;');
+                            for (var i in x) {
+                            var z = x[i].split('=', 2);
+                            vars[z[0]] = unescape(z[1]);
+                            }
+                            var x=['frompage', 'topage', 'page', 'webpage', 'section', 'subsection',
+                            'subsubsection'];
+                            for (var i in x) {
+                            var y = document.getElementsByClassName(x[i]);
+                            for (var j=0; j&lt;y.length; ++j)
+                            y[j].textContent = vars[x[i]];
+                            }
+                            var operations = {
+                            'not-first-page': function (elt) {
+                            elt.style.visibility = (vars.page === vars.frompage) ? "hidden" :
+                            "visible";
+                            },
+                            'not-last-page': function (elt) {
+                            elt.style.visibility = (vars.page === vars.topage) ? "hidden" :
+                            "visible";
+                            },
+                            'first-page': function (elt) {
+                            elt.style.visibility = (vars.page === vars.frompage) ? "visible" :
+                            "hidden";
+                            },
+                            'last-page': function (elt) {
+                            elt.style.visibility = (vars.page === vars.topage) ? "visible" :
+                            "hidden";
+                            },
+                            };
+                            for (var klass in operations) {
+                            var y = document.getElementsByClassName(klass);
+                            for (var j=0; j&lt;y.length; ++j)
+                            operations[klass](y[j]);
+                            }
+                            }
+                        </script>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

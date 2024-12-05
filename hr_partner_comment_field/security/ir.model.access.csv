@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_partner_comment_field,access_hr_partner_comment_field_user,hr_partner_comment_field.model_res_partner,group_hr_administration_user,1,0,0,0

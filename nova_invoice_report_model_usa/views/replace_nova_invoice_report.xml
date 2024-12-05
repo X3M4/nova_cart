@@ -1,0 +1,7 @@
+<odoo>
+    <template id="factura" inherit_id="account.report_novaCartografia_factura">
+        <xpath expr="." position="replace">
+            <t t-call="nova_invoice_report_model.nova_invoice_report"/>
+        </xpath>
+    </template>
+</odoo>

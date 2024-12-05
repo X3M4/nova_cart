@@ -1,0 +1,17 @@
+<odoo>
+    <record id="crm_case_form_view_leads_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="after">
+                <button name="action_set_rejected"
+                        string="Mark as Rejected"
+                        type="object"
+                        class="oe_highlight btn-warning"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

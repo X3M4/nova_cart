@@ -9,6 +9,8 @@
     'depends': ['base', 'hr'],
     'data': [
         # List your data files here, e.g. 'views/hr_partner_comment_field_view.xml'
+        'security/hr_security.xml',
+        'security/ir.model.access.csv',
         'views/res_partner_html_field.xml'
     ],
     'installable': True,

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Nuevo grupo de seguridad -->
+        <record id="group_hr_administration_user" model="res.groups">
+            <field name="name">Custom HR Group</field>
+            <field name="category_id" ref="base.module_category_human_resources"/>
+            <field name="comment">This group is for custom HR functionalities.</field>
+            <field name="implied_ids" eval="[(4, ref('hr.group_hr_user'))]"/>
+        </record>
+    </data>
+</odoo>

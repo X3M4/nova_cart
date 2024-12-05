@@ -154,11 +154,11 @@ class StockToolMoveLine(models.Model):
         track_visibility='always'
     )
     
-    qty_saved = fields.Integer(
-        string='Cantidad Guardada',
-        track_visibility='always',
-        related='product_id.qty_available',
-    )
+    # qty_saved = fields.Integer(
+    #     string='Cantidad Guardada',
+    #     track_visibility='always',
+    #     related='product_id.qty_available',
+    # )
         
     
     quantity = fields.Float(
