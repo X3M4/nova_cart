@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_rejected_reason_user,access.crm.rejected.reason.user,model_crm_rejected_reason,base.group_user,1,1,1,1
+access_crm_rejected_reason_manager,access.crm.rejected.reason.manager,model_crm_rejected_reason,base.group_system,1,1,1,1

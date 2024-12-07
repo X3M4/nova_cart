@@ -2,16 +2,36 @@
     <record id="crm_case_form_view_leads_inherit" model="ir.ui.view">
         <field name="name">crm.lead.form.lead.inherit</field>
         <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_set_lost']" position="replace">
+                <attribute name="attrs">
+                    {'invisible': ['|', '|', ('probability', '=', 0), ('active', '=', False), ('probability', '=', 0.05)]}
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_case_form_view_leads_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form.lead.inherit</field>
+        <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml">
             <xpath expr="//button[@name='action_set_won_rainbowman']" position="after">
                 <button name="action_set_rejected"
                         string="Mark as Rejected"
                         type="object"
-                        class="oe_highlight btn-warning"/>
+                        class="oe_highlight"
+                        attrs="{'invisible': [('active', '=', False)]}"/>
+                        
+            </xpath>
+
+            <xpath expr="//div[@class='badge-pill badge-success float-right']" position="after">
+                <div class="badge-pill badge-warning float-right" attrs="{'invisible': [('probability', '!=', 0.05)]}">Rejected</div>
             </xpath>
 
         </field>
     </record>
+
 
 </odoo>
