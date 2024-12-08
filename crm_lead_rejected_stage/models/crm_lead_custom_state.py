@@ -8,7 +8,7 @@ class CrmLeadCustom(models.Model):
     is_rejected = fields.Boolean(string='Is Rejected', default=False, track_visibility='always')
     is_lost = fields.Boolean(string='Is Lost', default=False)
     is_won = fields.Boolean(string='Is Won', default=False)
-    rejected_reason_id = fields.Many2one('crm.rejected.reason', string='Rejected Reason')
+    rejected_reason_id = fields.Many2one('crm.rejected.reason', string='Rejected Reason', track_visibility='onchange')
 
     
     @api.multi
@@ -17,7 +17,18 @@ class CrmLeadCustom(models.Model):
         self.action_check_all_registers()
         self.is_rejected = True
         # return self.write({'probability': 0.1})
-        return self.write({'probability': 0.05, 'active': True})
+        self.write({'probability': 0.05, 'active': True})
+        return {
+            'name': 'Rejected Reason',
+            'type': 'ir.actions.act_window',
+            'res_model': 'crm.lead.rejected',
+            'view_mode': 'form',
+            'view_id': self.env.ref('crm_lead_rejected_stage.crm_lead_rejected_view_form').id,
+            'target': 'new',
+            'context': {
+                'default_lead_id': self.id,  # Pasar el ID del lead al wizard
+            },
+        }
     
     @api.multi
     def action_set_lost(self):

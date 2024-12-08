@@ -11,7 +11,9 @@
         # Add your data files here
         'security/ir.model.access.csv',
         'views/crm_lead_custom_views.xml',
-        'views/crm_rejected_reason_views.xml'
+        'views/crm_rejected_reason_views.xml',
+        'views/crm_lead_custom_buttons.xml',
+        'wizard/crm_lead_rejected_views.xml',
     ],
     'installable': True,
     'application': False,

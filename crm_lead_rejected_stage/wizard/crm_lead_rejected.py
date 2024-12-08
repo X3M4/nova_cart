@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from odoo import api, fields, models
 
 class CrmLeadRejected(models.TransientModel):
@@ -9,5 +11,6 @@ class CrmLeadRejected(models.TransientModel):
     @api.multi
     def action_rejected_reason_apply(self):
         leads = self.env['crm.lead'].browse(self.env.context.get('active_ids'))
-        leads.write({'rejected_reason': self.rejected_reason_id.id})
-        return leads.action_set_rejected()
+        leads.write({'rejected_reason_id': self.rejected_reason_id.id})
+        leads.action_set_rejected()
+        return {'type': 'ir.actions.act_window_close'}
