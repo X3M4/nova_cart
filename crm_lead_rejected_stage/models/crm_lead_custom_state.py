@@ -8,7 +8,7 @@ class CrmLeadCustom(models.Model):
     is_rejected = fields.Boolean(string='Is Rejected', default=False, track_visibility='always')
     is_lost = fields.Boolean(string='Is Lost', default=False)
     is_won = fields.Boolean(string='Is Won', default=False)
-    rejected_reason_id = fields.Many2one('crm.rejected.reason', string='Rejected Reason', track_visibility='onchange')
+    rejected_reason_id = fields.Many2one('crm.rejected.reason', string='Rejected Reason', track_visibility='always')
 
     
     @api.multi
@@ -43,8 +43,9 @@ class CrmLeadCustom(models.Model):
         self.action_check_all_registers()
         for lead in self:
             self.is_won = True
-            stage_id = lead._stage_find(domain=[('probability', '=', 100.0), ('on_change', '=', True)])
-            lead.write({'stage_id': stage_id.id, 'probability': 100})
+            # stage_id = lead._stage_find(domain=[('probability', '=', 100.0), ('on_change', '=', True)])
+            # lead.write({'stage_id': stage_id.id, 'probability': 100})
+            return self.write({'probability': 100, 'active': True})
     
     @api.multi
     def action_check_all_registers(self):

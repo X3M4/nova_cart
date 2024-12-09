@@ -22,7 +22,7 @@
                         string="Mark as Rejected"
                         type="object"
                         class="oe_highlight btn-warning"
-                        attrs="{'invisible': ['|',('active', '=', False), ('probability', '=', 100)]}"/>
+                        attrs="{'invisible': ['|', '|',('active', '=', False), ('probability', '=', 100), ('probability', '=', 0.05)]}"/>
                         
             </xpath>
 
@@ -33,7 +33,7 @@
         </field>
     </record>
 
-    <record id="crm_lead_rejected_action" model="ir.actions.server">
+    <!-- <record id="crm_lead_rejected_action" model="ir.actions.server">
         <field name="name">Mark as Rejected</field>
         <field name="model_id" ref="crm_lead_rejected_stage.model_crm_lead" />
         <field name="state">code</field>
@@ -43,7 +43,7 @@
             action_values.update({'context': env.context})
             action = action_values
         </field>
-    </record>
+    </record> -->
 
     <record id="view_crm_case_leads_filter_inherit" model="ir.ui.view">
             <field name="name">crm.lead.search.lead.inherit</field>
