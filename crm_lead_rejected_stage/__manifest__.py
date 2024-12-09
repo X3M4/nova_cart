@@ -6,11 +6,15 @@
     'author': 'Your Name',
     'website': 'http://www.yourcompany.com',
     'category': 'Sales',
-    'depends': ['crm'],
+    'depends': ['crm', 'mail'],
     'data': [
         # Add your data files here
-        'views/set_lost_custom_button.xml',
+        'security/ir.model.access.csv',
         'views/crm_lead_custom_views.xml',
+        'views/crm_rejected_reason_views.xml',
+        'views/crm_lead_custom_buttons.xml',
+        'views/crm_lead_search_view_custom.xml',
+        'wizard/crm_lead_rejected_views.xml'
     ],
     'installable': True,
     'application': False,

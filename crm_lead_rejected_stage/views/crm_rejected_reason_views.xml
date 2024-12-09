@@ -1,0 +1,52 @@
+<odoo>
+    <record id="crm_rejected_reason_view_form" model="ir.ui.view">
+        <field name="name">crm.rejected.reason.form</field>
+        <field name="model">crm.rejected.reason</field>
+        <field name="arch" type="xml">
+            <form string="Channel">
+                <sheet>
+                    <group>
+                    <field name="name" />
+                    <field name="active" />
+                </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_rejected_reason_view_search" model="ir.ui.view">
+        <field name="name">crm.rejected.reason.view.search</field>
+        <field name="model">crm.rejected.reason</field>
+        <field name="arch" type="xml">
+            <search string="Reasons">
+                <filter string="Include archived" name="archived" domain="['|', ('active', '=', True), ('active', '=', False)]" />
+            </search>
+        </field>
+    </record>
+
+    <!-- Configuration/Lead & Rejected Reasons Menu -->
+    <record id="crm_rejected_reason_action" model="ir.actions.act_window">
+        <field name="name">Rejected Reasons</field>
+        <field name="res_model">crm.rejected.reason</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Define a new rejected reason
+            </p>
+            <p>
+                Use rejected reasons to explain why an opportunity is rejected.
+            </p>
+            <p>
+                Some examples of rejected reasons: "We don't have people/skill", "Price too high"
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="crm_rejected_reason_menu" name="Rejected Reasons" parent="crm.menu_crm_config_lead" action="crm_rejected_reason_action" />
+</odoo>
