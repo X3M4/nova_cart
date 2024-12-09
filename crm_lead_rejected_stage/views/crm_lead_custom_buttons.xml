@@ -7,7 +7,7 @@
             <xpath expr="//button[@name='action_set_won_rainbowman']" position="attributes">
                 <attribute name="class">oe_highlight btn-success</attribute>
                 <attribute name="attrs">
-                    {'invisible': ['&amp;', ('probability', '!=', 0), ('probability', '!=', 0.05)]}
+                    {'invisible': [('probability', '=', 100)]}
                 </attribute>
             </xpath>
 

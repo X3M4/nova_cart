@@ -12,11 +12,16 @@
                 <filter string="Lost" name="lost" domain="['&amp;', ('active', '=', False), ('is_lost', '=', True)]"/>
             </xpath>
             <xpath expr="//filter[@name='lost']" position="after">
-                <filter string="Rejected" name="rejected" domain="[('is_rejected', '=', False)]"/>
+                <filter string="Rejected" name="rejected" 
+                    domain="[('rejected_reason_id', '!=', False)]"/>
             </xpath>
 
             <xpath expr="//group/filter[@name='country']" position="after">
-                <filter string="Rejected Reason" name="rejectedreason" context="{'group_by':'rejected_reason_id'}"/>
+                <filter 
+                    string="Rejected Reason" 
+                    name="rejectedreason" 
+                    context="{'group_by':'rejected_reason_id'}"
+                    domain="[('rejected_reason_id', '!=', False)]"/>
             </xpath>
         </field>
     </record>
