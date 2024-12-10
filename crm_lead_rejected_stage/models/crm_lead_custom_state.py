@@ -72,7 +72,7 @@ class CrmLeadCustom(models.Model):
     
     @api.multi
     def action_check_all_registers(self):
-        leads = self.env['crm.lead']
+        leads = self.env['crm.lead'].search([])
         for l in leads:
             if l.probability == 0 and l.active == False:
                 l.write({

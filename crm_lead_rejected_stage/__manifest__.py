@@ -14,7 +14,7 @@
         'views/crm_rejected_reason_views.xml',
         'views/crm_lead_custom_buttons.xml',
         'views/crm_lead_search_view_custom.xml',
-        'wizard/crm_lead_rejected_views.xml'
+        'wizard/crm_lead_rejected_views.xml',
     ],
     'installable': True,
     'application': False,
