@@ -32,9 +32,9 @@
             <xpath expr="//filter[@name='close_date']" position="after">
                 <separator/>
                 <filter string="Tenders" name="tender" 
-                    domain="[('team_id.name', 'ilike', 'Licitaciones')]"/>
+                    domain="[('team_id.user_id.name', 'ilike', 'Licitaciones')]"/>
                 <filter string="New Customers" name="new_customer" 
-                    domain="[('team_id.name', 'ilike', 'Nuevos')]"/>
+                    domain="[('team_id.user_id.name', 'ilike', 'Nuevos Clientes')]"/>
             </xpath>
         </field>
     </record>
