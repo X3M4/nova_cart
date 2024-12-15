@@ -1,0 +1,12 @@
+<odoo>
+    <record id="crm_case_kanban_view_leads_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.kanban.lead.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+        <field name="arch" type="xml">
+            <xpath expr="//t[@t-name='kanban-box']" position="inside">
+                <div t-if="record.is_won.raw_value" class="o_kanban_ribbon o_kanban_ribbon_success">Won</div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

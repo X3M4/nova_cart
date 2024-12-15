@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="email_template_survey_inherit" model="mail.template">
+            <field name="name">Survey: Send by email (Inherited)</field>
+            <field name="model_id" ref="survey.model_survey_survey" />
+            <field name="subject">${object.title}: Survey</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0; padding: 20px; font-size: 14px; font-family: Arial, sans-serif; color: #333;">
+                    <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                        <h2 style="color: #875A7B;">${object.title}: Survey</h2>
+                        <p>Hello,</p>
+                        <p>We are conducting a survey, and your response would be appreciated.</p>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <a href="__URL__" style="background-color: #875A7B; padding: 10px 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 14px;">
+                                Start Survey
+                            </a>
+                        </div>
+                        <p>Thanks for your participation!</p>
+                        <p style="margin-top: 20px;">Best regards,<br/>Your Company</p>
+                    </div>
+                </div>
+            </field>
+            <field name="auto_delete" eval="True" />
+            <field name="user_signature" eval="False" />
+        </record>
+    </data>
+</odoo>
