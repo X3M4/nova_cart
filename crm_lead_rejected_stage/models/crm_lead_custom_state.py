@@ -25,17 +25,17 @@ class CrmLeadCustom(models.Model):
                     'is_rejected': True, 
                     'is_lost': False,
                     'is_won': False})
-        # return {
-        #     'name': 'Rejected Reason',
-        #     'type': 'ir.actions.act_window',
-        #     'res_model': 'crm.lead.rejected',
-        #     'view_mode': 'form',
-        #     'view_id': self.env.ref('crm_lead_rejected_stage.crm_lead_rejected_view_form').id,
-        #     'target': 'new',
-        #     'context': {
-        #         'default_lead_id': self.id,  # Pasar el ID del lead al wizard
-        #     },
-        # }
+        return {
+            'name': 'Rejected Reason',
+            'type': 'ir.actions.act_window',
+            'res_model': 'crm.lead.rejected',
+            'view_mode': 'form',
+            'view_id': self.env.ref('crm_lead_rejected_stage.crm_lead_rejected_view_form').id,
+            'target': 'new',
+            'context': {
+                'default_lead_id': self.id,  # Pasar el ID del lead al wizard
+            },
+        }
     
     @api.multi
     def action_set_lost(self):
