@@ -1,0 +1,14 @@
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_update_global_leaves" model="ir.cron">
+            <field name="name">Update Global Leaves</field>
+            <field name="model_id" ref="model_resource_calendar" />
+            <field name="state">code</field>
+            <field name="code">model.update_global_leaves()</field>
+            <field name="interval_type">months</field>
+            <field name="interval_number">12</field>
+            <field name="nextcall">2025-01-10 00:00:00</field>
+            <field name="doall" eval="False" />
+        </record>
+    </data>
+</odoo>

@@ -8,8 +8,11 @@
     'depends': ['base', 'resource'],
     'data': [
         # Add your data files here
+        'wizard/update_global_leave_ids_view.xml',
         'data/resource_calendar_leaves_custom.xml',
-        'views/resource_calendar_leaves_views.xml'
+        'views/resource_calendar_leaves_views.xml',
+        'views/resource_views.xml',
+        
     ],
     'installable': True,
     'application': False,

@@ -1,0 +1,4 @@
+<odoo>
+    <menuitem id="menu_update_global_leave_ids" name="Update Global Leave Ids"
+        parent="base.menu_custom" action="action_update_global_leave_ids" />
+</odoo>
