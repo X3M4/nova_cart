@@ -2,22 +2,39 @@
 <odoo>
     <data noupdate="1">
         <record id="email_template_survey_inherit" model="mail.template">
-            <field name="name">Survey: Send by email (Inherited)</field>
+            <field name="name">Encuestas idioma castellano</field>
             <field name="model_id" ref="survey.model_survey_survey" />
-            <field name="subject">${object.title}: Survey</field>
+            <field name="subject">${object.title}</field>
             <field name="body_html" type="html">
-                <div style="margin: 0; padding: 20px; font-size: 14px; font-family: Arial, sans-serif; color: #333;">
-                    <div style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                        <h2 style="color: #875A7B;">${object.title}: Survey</h2>
-                        <p>Hello,</p>
-                        <p>We are conducting a survey, and your response would be appreciated.</p>
+                <div
+                    style="margin: 0; padding: 20px; font-size: 14px; font-family: Arial, sans-serif; color: #333;">
+                    <div
+                        style="background-color: #f9f9f9; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                        <h2 style="color: #F9900A; text-align: center">${object.title}</h2>
                         <div style="text-align: center; margin: 20px 0;">
-                            <a href="__URL__" style="background-color: #875A7B; padding: 10px 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 14px;">
-                                Start Survey
+                            <img
+                                src="https://novacartografia.com/wp-content/uploads/2024/11/FOTO-PORTADA_10.jpg"
+                                alt="Encuesta"
+                                style="max-width: 100%; max-height: auto; border-radius: 10px;" />
+                        </div>
+                        
+                        <p style="text-align: justify;">Estimado cliente,</p>
+                        <p style="text-align: justify;">Esperamos que hayas tenido una experiencia positiva con nuestros servicios de topografía. Para nosotros, tu opinión es muy importante, 
+                        ya que nos ayuda a mejorar y ofrecerte siempre el mejor servicio posible.</p>
+                        <p style="text-align: justify;">Por ello, te invitamos a completar nuestra breve encuesta de satisfacción. Podrás valorarnos del <strong>1 al 5</strong>, 
+                        siendo <strong>1 la calificación más negativa y 5 la más positiva</strong>.</p>
+
+                        <!-- Imagen insertada aquí -->
+                        
+
+                        <div style="text-align: center; margin: 20px 0;">
+                            <a href="__URL__"
+                                style="background-color: #f9900A; padding: 10px 20px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 14px;">
+                                Iniciar Encuesta
                             </a>
                         </div>
-                        <p>Thanks for your participation!</p>
-                        <p style="margin-top: 20px;">Best regards,<br/>Your Company</p>
+                        <h2>Gracias por participar</h2>
+                        <p style="margin-top: 20px;">Saludos Cordiales,<br />Grupo Nova Cartografia</p>
                     </div>
                 </div>
             </field>

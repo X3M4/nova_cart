@@ -27,6 +27,12 @@
         # 'security/ir.model.access.csv',
         'data/mail_template_survey.xml',
     ],
+    
+    'assets': {
+        'web.assets_backend': [
+            'survey_mail_custom/static/src/img/banner.jpg',
+        ],
+    },
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',

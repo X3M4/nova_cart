@@ -1,0 +1,5 @@
+<odoo>
+    <data noupdate="1">
+        <function model="resource.calendar.leaves.custom" name="create_default_leaves"/>
+    </data>
+</odoo>

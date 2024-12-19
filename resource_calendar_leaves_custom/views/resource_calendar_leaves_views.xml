@@ -1,0 +1,14 @@
+<odoo>
+    <data>
+        <record id="resource_calendar_leave_form_inherit" model="ir.ui.view">
+            <field name="name">resource.calendar.leaves.form.inherit</field>
+            <field name="model">resource.calendar.leaves</field>
+            <field name="inherit_id" ref="resource.resource_calendar_leave_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='calendar_id']" position="replace">
+                    <field name="calendar_id"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
