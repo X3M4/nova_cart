@@ -6,10 +6,9 @@
             <form string="Update Global Leave Ids">
                 <group>
                     <field name="year"/>
-                    <field name="preview"/>
                 </group>
                 <footer>
-                    <button string="Update" type="object" name="update_global_leave_ids" class="btn-primary"/>
+                    <button string="Update" type="object" name="wizard_update_global_leave_ids" class="btn-primary"/>
                     <button string="Cancel" class="btn-secondary" special="cancel"/>
                 </footer>
             </form>
