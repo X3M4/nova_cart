@@ -2,6 +2,7 @@ from odoo import models, fields, api, _
 from datetime import datetime
 import sys
 from datetime import timedelta
+import pytz
 
 class UpdateGlobalLeaveIds(models.TransientModel):
     _name = 'update.global.leave.ids'
@@ -46,66 +47,70 @@ class UpdateGlobalLeaveIds(models.TransientModel):
         self.ensure_one()
         current_year = self.year
         leaves = self.env['resource.calendar.leaves'].search([('resource_id', '=', False)])
-        calendars = self.env['resource.calendar'].search([('global_leave_ids', '!=', False)])
+        thursday, friday = self.calculate_holy_thursday_good_friday(self.year)
+        monday_easter = self.calculate_easter_date(self.year) +  timedelta(days=1)
         
-        # import pdb; pdb.set_trace()
-    
+        user_tz = self.env.user.tz or 'UTC'
+        local = pytz.timezone(user_tz)
+        
+        def to_naive_utc(date):
+            """Convierte una fecha a UTC y la hace naive."""
+            localized_date = local.localize(date)
+            utc_date = localized_date.astimezone(pytz.UTC)
+            return utc_date.replace(tzinfo=None)
+        
         for leave in leaves:
-            if leave.name == 'Año Nuevo':
+            if leave.name == 'Jueves Santo':
                 leave.write({
-                    'date_from': datetime(self.year, 1, 1, 0, 0, 0),
-                    'date_to': datetime(self.year, 1, 1, 23, 59, 59)
-                })
-            elif leave.name == 'Reyes':
-                leave.write({
-                    'date_from': datetime(self.year, 1, 6, 0, 0, 0),
-                    'date_to': datetime(self.year, 1, 6, 23, 59, 59)
-                })
-            elif leave.name == 'Día de la Constitución':
-                leave.write({
-                    'date_from': datetime(self.year, 12, 6, 0, 0, 0),
-                    'date_to': datetime(self.year, 12, 6, 23, 59, 59)
-                })
-            elif leave.name == 'Jueves Santo':
-                thursday, friday = self.calculate_holy_thursday_good_friday(self.year)
-                leave.write({
-                    'date_from': thursday,
-                    'date_to': thursday + timedelta(days=1) - timedelta(hours=1)
+                    'date_from': to_naive_utc(thursday),
+                    'date_to': to_naive_utc(thursday.replace(hour=23, minute=59, second=59))
                 })
             elif leave.name == 'Viernes Santo':
-                thursday, friday = self.calculate_holy_thursday_good_friday(self.year)
                 leave.write({
-                    'date_from': friday,
-                    'date_to': friday + timedelta(days=1) - timedelta(hours=1)
+                    'date_from': to_naive_utc(friday),
+                    'date_to': to_naive_utc(friday.replace(hour=23, minute=59, second=59))
                 })
-            elif leave.name == 'Día del Trabajador':
+            elif leave.name == 'Lunes de Pascua':
                 leave.write({
-                    'date_from': datetime(self.year, 5, 1, 0, 0, 0),
-                    'date_to': datetime(self.year, 5, 1, 23, 59, 59)
+                    'date_from': to_naive_utc(monday_easter),
+                    'date_to': to_naive_utc(monday_easter.replace(hour=23, minute=59, second=59))
                 })
-            elif leave.name == 'Asunción de la Virgen':
+            elif leave.name == 'San Vicente Ferrer':
+                san_vicente = monday_easter + timedelta(days=7)
                 leave.write({
-                    'date_from': datetime(self.year, 8, 15, 0, 0, 0),
-                    'date_to': datetime(self.year, 8, 15, 23, 59, 59)
+                    'date_from': to_naive_utc(san_vicente),
+                    'date_to': to_naive_utc(san_vicente.replace(hour=23, minute=59, second=59))
                 })
-            elif leave.name == 'Fiesta Nacional de España':
+            elif leave.name == 'Corpus Christi':
+                corpus_christi = monday_easter + timedelta(days=60)
                 leave.write({
-                    'date_from': datetime(self.year, 10, 12, 0, 0, 0),
-                    'date_to': datetime(self.year, 10, 12, 23, 59, 59)
+                    'date_from': to_naive_utc(corpus_christi),
+                    'date_to': to_naive_utc(corpus_christi.replace(hour=23, minute=59, second=59))
                 })
-            elif leave.name == 'Todos los Santos':
+            else:
+                # Calcular fechas desde cero basándose en el año actual
+                original_date_from = leave.date_from.replace(year=current_year) + timedelta(days=1)
+                original_date_to = leave.date_to.replace(year=current_year)
+
+                new_date_from = datetime(
+                    current_year, 
+                    original_date_from.month, 
+                    original_date_from.day, 
+                    0, 0, 0
+                )
+                new_date_to = datetime(
+                    current_year, 
+                    original_date_to.month, 
+                    original_date_to.day, 
+                    23, 59, 59
+                )
+
+                # Validar que `date_from` sea anterior a `date_to`
+                if new_date_from > new_date_to:
+                    new_date_to = new_date_from + timedelta(days=1)
+
                 leave.write({
-                    'date_from': datetime(self.year, 11, 1, 0, 0, 0),
-                    'date_to': datetime(self.year, 11, 1, 23, 59, 59)
-                })
-            elif leave.name == 'Inmaculada Concepción':
-                leave.write({
-                    'date_from': datetime(self.year, 12, 8, 0, 0, 0),
-                    'date_to': datetime(self.year, 12, 8, 23, 59, 59)
-                })
-            elif leave.name == 'Navidad':
-                leave.write({
-                    'date_from': datetime(self.year, 12, 25, 0, 0, 0),
-                    'date_to': datetime(self.year, 12, 25, 23, 59, 59)
+                    'date_from': to_naive_utc(new_date_from),
+                    'date_to': to_naive_utc(new_date_to)
                 })
             print(f"Actualizado: {leave.name}, {leave.date_from} - {leave.date_to}".encode(sys.stdout.encoding, errors='replace').decode())
